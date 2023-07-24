@@ -52,6 +52,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "macos_where_from"
+version = "0.1.0"
+dependencies = [
+ "plist",
+ "xattr",
+]
+
+[[package]]
 name = "memchr"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -117,14 +125,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "96ba15a897f3c86766b757e5ac7221554c6750054d74d5b28844fce5fb36a6c4"
 dependencies = [
  "time-core",
-]
-
-[[package]]
-name = "where_from"
-version = "0.1.0"
-dependencies = [
- "plist",
- "xattr",
 ]
 
 [[package]]

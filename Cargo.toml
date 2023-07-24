@@ -1,7 +1,13 @@
 [package]
-name = "where_from"
+name = "macos_where_from"
 version = "0.1.0"
 edition = "2021"
+description = "MacOS CLI tool to see URL(s) a file was downloaded from"
+repository = "https://github.com/edbrannin/macos-where-from"
+homepage = "https://github.com/edbrannin/macos-where-from"
+license-file = "LICENSE"
+readme = "README.md"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

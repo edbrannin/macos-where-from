@@ -21,8 +21,9 @@ To do:
     note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace 
     ```
 
-    - [ ] Missing file
-    - [ ] File has no matching xattr
+    - [x] Missing file
+        - [ ] Doesn't panic, but could use a better error message?
+    - [x] File has no matching xattr
     - [ ] Wrong platform
 - [ ] Formatting options (and `--help`)
     - [ ] Print filename before its URLs

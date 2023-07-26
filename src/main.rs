@@ -9,20 +9,37 @@ fn main() {
         }
 
         let file_path : &Path = Path::new(argument);
-        for url in get_urls(file_path) {
+        let urls = get_urls(file_path);
+        if urls.is_none() {
+            println!("No WhereFroms found");
+            continue;
+        }
+        for url in urls.unwrap() {
             println!("{}", url)
         }
     }
 }
 
-fn get_where_froms(path: &Path) -> Vec<u8> {
-    return xattr::get(path, "com.apple.metadata:kMDItemWhereFroms").unwrap().unwrap();
+fn get_where_froms(path: &Path) -> Option<Vec<u8>> {
+    let result = xattr::get(path, "com.apple.metadata:kMDItemWhereFroms");
+    if result.is_err() {
+        println!("Failed: {:#?}", result.err());
+        return Option::None;
+    }
+
+    let result = result.unwrap();
+    return result;
 }
 
 
 
-fn get_urls(path: &Path) -> Vec<String> {
+fn get_urls(path: &Path) -> Option<Vec<String>> {
     let plist_bytes = get_where_froms(path);
+    if plist_bytes.is_none() {
+        return Option::None;
+    }
+
+    let plist_bytes = plist_bytes.unwrap();
     let result_plist = plist::from_bytes::<Vec<String>>(plist_bytes.as_slice()).unwrap();
-    return result_plist;
+    return Option::Some(result_plist);
 }

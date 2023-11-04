@@ -1,4 +1,4 @@
-use std::{path::Path, env};
+use std::{path::Path, env, process::exit};
 use url::Url;
 
 type FilterFunc = fn(std::string::String) -> Option<std::string::String>;
@@ -9,9 +9,18 @@ fn main() {
     let mut verbose = false;
     let mut filter: FilterFunc = passthru;
     let mut index = Option::None;
+    let mut stop_on_error = false;
     for argument in &args[1..] {
         if argument == "--help" {
-            println!("You passed --help as one of the arguments!");
+            println!("Usage: where-from [options] [files]");
+            println!();
+            println!("Options:");
+            println!("-v --verbose\tPrint warnings");
+            println!("-d --domain\tPrint domain instead of entire URL");
+            println!("-l --last\tPrint only the last URL found");
+            println!("-s --stop-on-error\tExit 1 if a file does not have source URLs");
+            println!("(Option-grouping like -vdl does NOT work yet)");
+
             return;
         }
 
@@ -30,11 +39,19 @@ fn main() {
             continue;
         }
 
+        if argument == "--stop-on-error" || argument == "-s" {
+            stop_on_error = true;
+            continue;
+        }
+
         let file_path : &Path = Path::new(argument);
         let urls = get_urls(file_path);
         if urls.is_none() {
             if verbose {
                 println!("No WhereFroms found");
+            }
+            if stop_on_error {
+                exit(1)
             }
             continue;
         }

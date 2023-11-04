@@ -13,6 +13,7 @@ readme = "README.md"
 
 [dependencies]
 plist = "1"
+url = "2.4.1"
 xattr = "1"
 
 [[bin]]
